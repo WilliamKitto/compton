@@ -1,0 +1,110 @@
+---
+title: "Science Fair"
+author: "Tyler"
+date: "September 18, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+require(tigerstats)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r }
+tempdata <- read.csv(file="comptonData.csv", header=TRUE)
+tempdata[,4:10]<-tempdata[,4:10]-tempdata$Outside #normalize by outside temp
+#look at
+
+day <- equal.count(tempdata$Day, number = 2, overlap = 0.1)
+xyplot(White ~ Outside | day,
+	data = tempdata,
+	layout = c(2,1),
+	groups = thermo,
+	auto.key = list(
+		space = "top",
+		title = "thermo",
+		cex.title = 1,
+		columns = 1),
+	type = c("p","smooth"),
+	main = "Temp delta from outside")
+xyplot(White.with.Glass ~ Outside | day,
+	data = tempdata,
+	layout = c(2,1),
+	groups = thermo,
+	auto.key = list(
+		space = "top",
+		title = "thermo",
+		cex.title = 1,
+		columns = 1),
+	type = c("p","smooth"),
+	main = "Temp delta from outside")
+xyplot(White.with.Zinc.Oxide ~ Outside | day,
+	data = tempdata,
+	layout = c(2,1),
+	groups = thermo,
+	auto.key = list(
+		space = "top",
+		title = "thermo",
+		cex.title = 1,
+		columns = 1),
+	type = c("p","smooth"),
+	main = "Temp delta from outside")
+xyplot(Black ~ Outside | day,
+	data = tempdata,
+	layout = c(2,1),
+	groups = thermo,
+	auto.key = list(
+		space = "top",
+		title = "thermo",
+		cex.title = 1,
+		columns = 1),
+	type = c("p","smooth"),
+	main = "Temp delta from outside")
+xyplot(Black.with.Glass ~ Outside | day,
+	data = tempdata,
+	layout = c(2,1),
+	groups = thermo,
+	auto.key = list(
+		space = "top",
+		title = "thermo",
+		cex.title = 1,
+		columns = 1),
+	type = c("p","smooth"),
+	main = "Temp delta from outside")
+xyplot(Black.with.Zinc.Oxide ~ Outside | day,
+	data = tempdata,
+	layout = c(2,1),
+	groups = thermo,
+	auto.key = list(
+		space = "top",
+		title = "thermo",
+		cex.title = 1,
+		columns = 1),
+	type = c("p","smooth"),
+	main = "Temp delta from outside")
+xyplot(Control ~ Outside | day,
+	data = tempdata,
+	layout = c(2,1),
+	groups = thermo,
+	auto.key = list(
+		space = "top",
+		title = "thermo",
+		cex.title = 1,
+		columns = 1),
+	type = c("p","smooth"),
+	main = "Temp delta from outside")
+```
+
+## next look at each separately
+
+You can also embed plots, for example:
+
+```{r }
+#subtract "outside" from all numeric temp colums using some variation of apply or dplyr then look at plots
+```
+
