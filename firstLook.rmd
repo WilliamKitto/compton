@@ -9,14 +9,61 @@ output: html_document
 require(tigerstats)
 ```
 
-## R Markdown
+# Introduction
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+In an effort to track the influence of direct sunlight on small structures with different surface coatings the following steps were taken. 
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+* seven toy houses were built of wood. Six different coatings were used and the bare wood house was named "control".  
+* External temp of the coating on each test article was taken with an infrared thermometer in while the probe was placed in the structure and temp recorded after it stabelized ~ 30 seconds.  
+* process was repeated hourly.  
+* We want to investigate temperature differences across the different surface coatings
+
+
+# Methods
+
+We look at plots of temp readings over time.
+
+```{r}
+tempdata <- read.csv(file="comptonData.csv", header=TRUE)
+xyplot(Outside ~ Time.Change | thermo,
+	data = tempdata,
+	layout = c(2,1),
+	type = c("p","smooth"))
+
+xyplot(White ~ Time.Change | thermo,
+	data = tempdata,
+	layout = c(2,1),
+	type = c("p","smooth"))
+
+xyplot(White.with.Glass ~ Time.Change | thermo,
+	data = tempdata,
+	layout = c(2,1),
+	type = c("p","smooth"))
+
+xyplot(White.with.Zinc.Oxide ~ Time.Change | thermo,
+	data = tempdata,
+	layout = c(2,1),
+	type = c("p","smooth"))
+
+xyplot(Black ~ Time.Change | thermo,
+	data = tempdata,
+	layout = c(2,1),
+	type = c("p","smooth"))
+
+xyplot(Black.with.Glass ~ Time.Change | thermo,
+	data = tempdata,
+	layout = c(2,1),
+	type = c("p","smooth"))
+
+xyplot(Black.with.Zinc.Oxide ~ Time.Change | thermo,
+	data = tempdata,
+	layout = c(2,1),
+	type = c("p","smooth"))
+
+```
 
 ```{r }
-tempdata <- read.csv(file="comptonData.csv", header=TRUE)
+
 tempdata[,4:10]<-tempdata[,4:10]-tempdata$Outside #normalize by outside temp
 #look at
 
