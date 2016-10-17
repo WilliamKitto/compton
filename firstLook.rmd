@@ -25,50 +25,82 @@ We look at plots of temp readings over time.
 
 ```{r}
 tempdata <- read.csv(file="comptonData.csv", header=TRUE)
-xyplot(Outside ~ Time.Change | thermo,
-	data = tempdata,
-	layout = c(2,1),
-	type = c("p","smooth"))
 
-xyplot(White ~ Time.Change | thermo,
-	data = tempdata,
-	layout = c(2,1),
-	type = c("p","smooth"))
+df <- tempdata
 
-xyplot(White.with.Glass ~ Time.Change | thermo,
-	data = tempdata,
-	layout = c(2,1),
-	type = c("p","smooth"))
-
-xyplot(White.with.Zinc.Oxide ~ Time.Change | thermo,
-	data = tempdata,
-	layout = c(2,1),
-	type = c("p","smooth"))
-
-xyplot(Black ~ Time.Change | thermo,
-	data = tempdata,
-	layout = c(2,1),
-	type = c("p","smooth"))
-
-xyplot(Black.with.Glass ~ Time.Change | thermo,
-	data = tempdata,
-	layout = c(2,1),
-	type = c("p","smooth"))
-
-xyplot(Black.with.Zinc.Oxide ~ Time.Change | thermo,
-	data = tempdata,
-	layout = c(2,1),
-	type = c("p","smooth"))
-
+for( i in 4:10 ) {
+    df[i] <- df[i] - df[3] #normalize by outside temp
+}
+df$Day <- as.factor(df$Day) #correctly type day as factor
 ```
 
+```{r}
+xyplot(White ~ Time.Change | Day,
+	data = df,
+	layout = c(2,1),
+	groups = thermo,
+	auto.key = list(
+		space = "top",
+		title = "thermo",
+		cex.title = 1,
+		columns = 1),
+	type = c("p","smooth"))
+xyplot(White.with.Glass ~ Time.Change | Day,
+	data = df,
+	layout = c(2,1),
+	groups = thermo,
+	auto.key = list(
+		space = "top",
+		title = "thermo",
+		cex.title = 1,
+		columns = 1),
+	type = c("p","smooth"))
+xyplot(White.with.Zinc.Oxide ~ Time.Change | Day,
+	data = df,
+	layout = c(2,1),
+	groups = thermo,
+	auto.key = list(
+		space = "top",
+		title = "thermo",
+		cex.title = 1,
+		columns = 1),
+	type = c("p","smooth"))
 
-
-## next look at each separately
-
-You can also embed plots, for example:
-
-```{r }
-#subtract "outside" from all numeric temp colums using some variation of apply or dplyr then look at plots
+xyplot(Black ~ Time.Change | Day,
+	data = df,
+	layout = c(2,1),
+	groups = thermo,
+	auto.key = list(
+		space = "top",
+		title = "thermo",
+		cex.title = 1,
+		columns = 1),
+	type = c("p","smooth"))
+xyplot(Black.with.Glass ~ Time.Change | Day,
+	data = df,
+	layout = c(2,1),
+	groups = thermo,
+	auto.key = list(
+		space = "top",
+		title = "thermo",
+		cex.title = 1,
+		columns = 1),
+	type = c("p","smooth"))
+xyplot(Black.with.Zinc.Oxide ~ Time.Change | Day,
+	data = df,
+	layout = c(2,1),
+	groups = thermo,
+	auto.key = list(
+		space = "top",
+		title = "thermo",
+		cex.title = 1,
+		columns = 1),
+	type = c("p","smooth"))
 ```
+# Observations
 
+##Black paint internal temps average higher than white painted ones.  
+
+###can do with one way anova or ttest or wilcoxon  
+
+##There is a larger average difference between black than white (surface to internal)
