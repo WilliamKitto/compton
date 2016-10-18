@@ -33,9 +33,7 @@ for( i in 4:10 ) {
 }
 df$Day <- as.factor(df$Day) #correctly type day as factor
 
-attach(df)
-dfint <- df[ which(thermo=='internal'),]
-detach(df)
+
 ```
 
 ```{r}
@@ -101,10 +99,43 @@ xyplot(Black.with.Zinc.Oxide ~ Time.Change | Day,
 		columns = 1),
 	type = c("p","smooth"))
 ```
+
+
 # Observations
 
-##Black paint internal temps average higher than white painted ones.  
+##Black paint internal temps average higher than white painted ones. 
+```{r}
+attach(df)
+dfint <- df[ which(thermo =='internal'),]
+dfsurf <- df[ which(thermo !='internal'),]
+detach(df)
+dfint.short<-dfint[,4:9 ]
+boxplot(dfint.short)
+dfintStack <- stack(dfint.short)
+oneway <- aov(values~ind,data=dfintStack)
+summary.lm(oneway)
+pairwise.t.test(dfintStack$values,g=dfintStack$ind)
+```
+
 
 ###can do with one way anova or ttest or wilcoxon  
 
+
 ##There is a larger average difference between black than white (surface to internal)
+```{r}
+
+White.dif <- dfsurf$White - dfint$White
+White.with.Glass.dif <- dfsurf$White.with.Glass - dfint$White.with.Glass
+White.with.Zinc.Oxide.dif <- dfsurf$White.with.Zinc.Oxide - dfint$White.with.Zinc.Oxide
+Black.dif <- dfsurf$Black - dfint$Black
+Black.with.Glass.dif <- dfsurf$Black.with.Glass - dfint$Black.with.Glass
+Black.with.Zinc.Oxide.dif <- dfsurf$Black.with.Zinc.Oxide - dfint$Black.with.Zinc.Oxide
+difdf <- data.frame(White.dif,White.with.Glass.dif,White.with.Zinc.Oxide.dif,Black.dif,Black.with.Glass.dif,Black.with.Zinc.Oxide.dif)
+
+boxplot(difdf)
+difdfStack <- stack(difdf)
+oneway2 <- aov(values~ind,data=difdfStack)
+summary.lm(oneway2)
+
+```
+
