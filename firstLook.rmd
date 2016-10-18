@@ -32,6 +32,10 @@ for( i in 4:10 ) {
     df[i] <- df[i] - df[3] #normalize by outside temp
 }
 df$Day <- as.factor(df$Day) #correctly type day as factor
+
+attach(df)
+dfint <- df[ which(thermo=='internal'),]
+detach(df)
 ```
 
 ```{r}
