@@ -114,7 +114,8 @@ boxplot(dfint.short)
 dfintStack <- stack(dfint.short)
 oneway <- aov(values~ind,data=dfintStack)
 summary.lm(oneway)
-pairwise.t.test(dfintStack$values,g=dfintStack$ind)
+TukeyHSD(x=oneway)
+plot(TukeyHSD(oneway))
 ```
 
 
@@ -136,6 +137,8 @@ boxplot(difdf)
 difdfStack <- stack(difdf)
 oneway2 <- aov(values~ind,data=difdfStack)
 summary.lm(oneway2)
+TukeyHSD(x=oneway2)
+plot(TukeyHSD(oneway2))
 
 ```
 
